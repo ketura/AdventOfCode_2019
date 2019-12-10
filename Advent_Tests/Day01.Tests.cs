@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Day01.Tests
+namespace Advent.Tests
 {
 	public class Day01_Tests
 	{

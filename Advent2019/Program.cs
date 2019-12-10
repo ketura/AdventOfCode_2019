@@ -1,4 +1,5 @@
 ﻿using Advent2019.Day01;
+using Advent2019.Day02;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,6 +30,40 @@ namespace Advent2019
 					int result = checker.CalculateRocketEquationFuelSum(ints);
 					return $"Total fuel is: {result}";
 				},
+
+				["2A"] = () =>
+				{
+					var program = new IntcodeProgram(File.ReadAllText("files/day02/input_day02_modified.txt"));
+					var interpreter = new IntcodeInterpreter();
+					interpreter.Execute(program, true);
+					return $"Position 0: {program.Program[0]}";
+				},
+
+				["2B"] = () =>
+				{
+					string defaultInput = File.ReadAllText("files/day02/input_day02.txt");
+					var interpreter = new IntcodeInterpreter();
+					int output = -1;
+					for(int noun = 0; noun <= 99; noun++)
+					{
+						for(int verb = 0; verb <=99; verb++)
+						{
+							var program = new IntcodeProgram(defaultInput);
+							program.Program[1] = noun;
+							program.Program[2] = verb;
+
+							interpreter.Execute(program, false);
+
+							if(program.Program[0] == 19690720)
+							{
+								output = 100 * noun + verb;
+							}
+						}
+						
+					}
+					
+					return $"Output : {output}";
+				},
 			};
 
 			if(!days.ContainsKey(input))
@@ -38,9 +73,9 @@ namespace Advent2019
 				return;
 			}
 
-			string output = days[input]();
+			string finalOutput = days[input]();
 
-			Console.WriteLine(output);
+			Console.WriteLine(finalOutput);
 			Console.ReadLine();
 
 		}
